@@ -25,8 +25,8 @@ client = bigquery.Client(credentials = bqCredentials)
 dailyTotalsQuery = ('''
                SELECT *
                FROM `rcp-ada.looker_ready.recipe_sales_yoy`
-               WHERE DATE(business_date) <= CURRENT_DATE()-1
-               ORDER BY DATE(business_date) DESC, store_number DESC, rvcID ASC
+               WHERE business_date <= CURRENT_DATE()-1
+               ORDER BY business_date DESC, store_number DESC, rvcID ASC
 ''')
 
 ##Pipeline Functions##
