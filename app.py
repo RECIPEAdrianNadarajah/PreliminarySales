@@ -8,7 +8,6 @@ from google.cloud import bigquery
 
 hide_streamlit_style = """
                        <style>
-                       #MainMenu {visibility:hidden;}
                        footer {visibility:hidden;}
                        </style>
 """
@@ -25,7 +24,7 @@ client = bigquery.Client(credentials = bqCredentials)
 dailyTotalsQuery = ('''
                SELECT *
                FROM `rcp-ada.looker_ready.recipe_sales_yoy`
-               WHERE business_date <= CURRENT_DATE()-1
+               WHERE business_date BETWEEN DATE_SUB(CURRENT_DATE("US/Eastern"), INTERVAL 107 WEEK) AND  CURRENT_DATE("US/Eastern")-1
                ORDER BY business_date DESC, store_number DESC, rvcID ASC
 ''')
 
