@@ -230,3 +230,54 @@ if reportSelection == "📊 Executive Preliminary Sales": ##Executive Preliminar
         st.dataframe(srtcDataframe)
 elif reportSelection == "📈 Brand Preliminary Sales":
     st.title("Brand Preliminary Sales")
+    dateMapping = {"Yesterday":"isYesterday",
+                   "WTD":"isWTD",
+                   "PTD":"isPTD",
+                   "QTD":"isQTD",
+                   "YTD":"isYTD"}
+    srsdataframeDict = {"Yesterday":0,
+                     "WTD":0,
+                     "PTD":0,
+                     "QTD":0,
+                     "YTD":0}
+    srgcdataframeDict = {"Yesterday":0,
+                     "WTD":0,
+                     "PTD":0,
+                     "QTD":0,
+                     "YTD":0}
+    srtcdataframeDict = {"Yesterday":0,
+                     "WTD":0,
+                     "PTD":0,
+                     "QTD":0,
+                     "YTD":0}
+    agcdataframeDict = {"Yesterday":0,
+                        "WTD":0,
+                        "PTD":0,
+                        "QTD":0,
+                        "YTD":0}
+    atvdataframeDict = {"Yesterday":0,
+                        "WTD":0,
+                        "PTD":0,
+                        "QTD":0,
+                        "YTD":0}
+    brandList = ('Swiss Chalet',
+                 "East Side Mario's",
+                 "Fresh Kitchen + Juice Bar",
+                 "The Keg Steakhouse + Bar",
+                 "Ultimate Kitchens",
+                 "Landing Group",
+                 "Pickle Barrel",
+                 "Montana's",
+                 "Bier Markt",
+                 "Kelseys",
+                 "Harvey's",
+                 "The Burger's Priest",
+                 "New York Fries",
+                 "St. Hubert",
+                 "Original Joe's",
+                 "State & Main",
+                 "Elephant & Castle",
+                 "Anejo Restaurant",
+                 "Blanco Cantina")
+    brandSelect = st.selectbox('Select a Brand: ', brandList)
+    st.write("You selected: ", brandSelect)
