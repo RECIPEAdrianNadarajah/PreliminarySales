@@ -100,6 +100,7 @@ def createSystemDataframe(inputDataframe, timeframe, measure):
         return dataframe
 
 ##Create Brand-Selected System Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
+st.cache_data(ttl = 86400)
 def createBrandSystemDataframe(inputDataframe, timeframe, measure, brandSelect):
         dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby(brandSelect)[measure].sum()
         return dataframe
@@ -111,6 +112,7 @@ def createTYDataframe(inputDataframe, timeframe, measure):
         return dataframe
 
 ##Create Brand-Selected TY Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
+st.cache_data(ttl = 86400)
 def createBrandTYDataframe(inputDataframe, timeframe, measure, brandSelect):
         dataframe = inputDataframe[inputDataframe[timeframe]==True].gropuby(brandSelect)[measure].sum()
         return dataframe
@@ -122,6 +124,7 @@ def createLYDataframe(inputDataframe, timeframe, measure):
         return dataframe
 
 ##Create Brand-Selected System Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
+st.cache_data(ttl = 86400)
 def createBrandLYDataframe(inputDataframe, timeframe, measure, brandSelect):
         dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby(brandSelect)[measure].sum()
         return dataframe
@@ -142,6 +145,7 @@ def createSRSDataframe(inputDataframe, timeframe):
         mergedDataframe = mergedDataframe[['srs%', 'systemNetSales']]
         return mergedDataframe
 
+st.cache_data(ttl = 86400)
 def createBrandSRSDataframe(inputDataframe, timeframe, brandSelect):
         '''
         Create the Brand-Selected SRS Dataframe ('srs%', 'system$')
@@ -171,6 +175,7 @@ def createSRGCDataframe(inputDataframe, timeframe):
         mergedDataframe = mergedDataframe[['srgc%', 'systemGuestCount']]
         return mergedDataframe
 
+st.cache_data(ttl = 86400)
 def createBrandSRGCDataframe(inputDataframe, timeframe, brandSelect):
         '''
         Create the Brand-Selected SRGC Dataframe ('srs%', 'system$')
@@ -200,6 +205,7 @@ def createSRTCDataframe(inputDataframe, timeframe):
         mergedDataframe = mergedDataframe[['srtc%', 'systemTransactionCount']]
         return mergedDataframe
 
+st.cache_data(ttl = 86400)
 def createBrandSRTCDataframe(inputDataframe, timeframe, brandSelect):
         '''
         Create the Brand-Selected SRTC dataframes( 'srtc%', 'system')
