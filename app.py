@@ -114,7 +114,7 @@ def createTYDataframe(inputDataframe, timeframe, measure):
 ##Create Brand-Selected TY Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
 st.cache_data(ttl = 86400)
 def createBrandTYDataframe(inputDataframe, timeframe, measure, brandSelect):
-        dataframe = inputDataframe[inputDataframe[timeframe]==True].gropuby(brandSelect)[measure].sum()
+        dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby(brandSelect)[measure].sum()
         return dataframe
 
 ##Create LY Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
