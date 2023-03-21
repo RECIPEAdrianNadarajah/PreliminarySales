@@ -151,11 +151,11 @@ def createBrandSRSDataframe(inputDataframe, timeframe, brandSelect):
         Create the Brand-Selected SRS Dataframe ('srs%', 'system$')
         for the varying timframes: yesterday, WTD, PTD, QTD, YTD
         '''
-        tyDataframe = createBrandTYDataframe(inputDataframe, timeframe, 'sameRestaurantTYNetSales', brandSelect)
+        tyDataframe = createBrandTYDataframe(inputDataframe, timeframe, 'sameRestaurantTYNetSales')
         tyDataframe = tyDataframe.loc[brandSelect]
-        lyDataframe = createBrandLYDataframe(inputDataframe, timeframe, 'sameRestaurantLYNetSales', brandSelect)
+        lyDataframe = createBrandLYDataframe(inputDataframe, timeframe, 'sameRestaurantLYNetSales')
         lyDataframe = lyDataframe.loc[brandSelect]
-        systemDataframe = createBrandSystemDataframe(inputDataframe, timeframe, 'systemNetSales', brandSelect)
+        systemDataframe = createBrandSystemDataframe(inputDataframe, timeframe, 'systemNetSales')
         systemDataframe = systemDataframe.loc[brandSelect]
         compingDataframe = pd.concat([tyDataframe, lyDataframe], axis = 1)
         compingDataframe['srs%'] = round((compingDataframe['sameRestaurantTYNetSales']/compingDataframe['sameRestaurantLYNetSales'])-1,3)
