@@ -99,33 +99,15 @@ def createSystemDataframe(inputDataframe, timeframe, measure):
         dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby('brandName')[measure].sum()
         return dataframe
 
-##Create Brand-Selected System Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
-st.cache_data(ttl = 86400)
-def createBrandSystemDataframe(inputDataframe, timeframe, measure):
-        dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby('brandName')[measure].sum()
-        return dataframe
-
 ##Create TY Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
 st.cache_data(ttl = 86400)
 def createTYDataframe(inputDataframe, timeframe, measure):
         dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby('brandName')[measure].sum()
         return dataframe
 
-##Create Brand-Selected TY Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
-st.cache_data(ttl = 86400)
-def createBrandTYDataframe(inputDataframe, timeframe, measure):
-        dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby('brandName')[measure].sum()
-        return dataframe
-
 ##Create LY Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
 st.cache_data(ttl = 86400)
 def createLYDataframe(inputDataframe, timeframe, measure):
-        dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby('brandName')[measure].sum()
-        return dataframe
-
-##Create Brand-Selected System Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
-st.cache_data(ttl = 86400)
-def createBrandLYDataframe(inputDataframe, timeframe, measure):
         dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby('brandName')[measure].sum()
         return dataframe
 
@@ -139,24 +121,6 @@ def createSRSDataframe(inputDataframe, timeframe):
         tyDataframe = createTYDataframe(inputDataframe, timeframe, 'sameRestaurantTYNetSales')
         lyDataframe = createLYDataframe(inputDataframe, timeframe, 'sameRestaurantLYNetSales')
         systemDataframe = createSystemDataframe(inputDataframe, timeframe, 'systemNetSales')
-        compingDataframe = pd.concat([tyDataframe, lyDataframe], axis = 1)
-        compingDataframe['srs%'] = round((compingDataframe['sameRestaurantTYNetSales']/compingDataframe['sameRestaurantLYNetSales'])-1,3)
-        mergedDataframe = pd.concat([compingDataframe, systemDataframe], axis = 1)
-        mergedDataframe = mergedDataframe[['srs%', 'systemNetSales']]
-        return mergedDataframe
-
-st.cache_data(ttl = 86400)
-def createBrandSRSDataframe(inputDataframe, timeframe, brandSelect):
-        '''
-        Create the Brand-Selected SRS Dataframe ('srs%', 'system$')
-        for the varying timframes: yesterday, WTD, PTD, QTD, YTD
-        '''
-        tyDataframe = createBrandTYDataframe(inputDataframe, timeframe, 'sameRestaurantTYNetSales')
-        tyDataframe = tyDataframe.loc[brandSelect]
-        lyDataframe = createBrandLYDataframe(inputDataframe, timeframe, 'sameRestaurantLYNetSales')
-        lyDataframe = lyDataframe.loc[brandSelect]
-        systemDataframe = createBrandSystemDataframe(inputDataframe, timeframe, 'systemNetSales')
-        systemDataframe = systemDataframe.loc[brandSelect]
         compingDataframe = pd.concat([tyDataframe, lyDataframe], axis = 1)
         compingDataframe['srs%'] = round((compingDataframe['sameRestaurantTYNetSales']/compingDataframe['sameRestaurantLYNetSales'])-1,3)
         mergedDataframe = pd.concat([compingDataframe, systemDataframe], axis = 1)
@@ -179,21 +143,6 @@ def createSRGCDataframe(inputDataframe, timeframe):
         return mergedDataframe
 
 st.cache_data(ttl = 86400)
-def createBrandSRGCDataframe(inputDataframe, timeframe, brandSelect):
-        '''
-        Create the Brand-Selected SRGC Dataframe ('srs%', 'system$')
-        for the varying timeframes: yesterday, WTD, PTD, QTD, YTD
-        '''
-        tyDataframe = createBrandTYDataframe(inputDataframe, timeframe, 'sameRestaurantTYNetSales', brandSelect)
-        lyDataframe = createBrandLYDataframe(inputDataframe, timeframe, 'sameRestaurantLYNetSales', brandSelect)
-        systemDataframe = createBrandSystemDataframe(inputDataframe, timeframe, 'systemNetSales', brandSelect)
-        compingDataframe = pd.concat([tyDataframe, lyDataframe], axis = 1)
-        compingDataframe['srs%'] = round((compingDataframe['sameRestaurantTYNetsales']/compingDataframe['sameRestaurantLYNetSales'])-1,3)
-        mergedDataframe = pd.concat([compingDataframe, systemDataframe], axis = 1)
-        mergedDataframe = mergedDataframe[['srs%', 'systemNetSales']]
-        return mergedDataframe
-
-st.cache_data(ttl = 86400)
 def createSRTCDataframe(inputDataframe, timeframe):
         '''
         Create the appropriate SRTC dataframes ('srtc%', 'system'))
@@ -207,22 +156,6 @@ def createSRTCDataframe(inputDataframe, timeframe):
         mergedDataframe = pd.concat([compingDataframe, systemDataframe], axis =1)
         mergedDataframe = mergedDataframe[['srtc%', 'systemTransactionCount']]
         return mergedDataframe
-
-st.cache_data(ttl = 86400)
-def createBrandSRTCDataframe(inputDataframe, timeframe, brandSelect):
-        '''
-        Create the Brand-Selected SRTC dataframes( 'srtc%', 'system')
-        for the varying timeframes: yesterday, wtd, ptd, qtd, ytd
-        '''
-        tyDataframe = createBrandTYDataframe(inputDataframe, timeframe, 'sameRestaurantTYTransactionCount', brandSelect)
-        lyDataframe = createBrandLYDataframe(inputDataframe, timeframe, 'sameRestaurantLYNetSales', brandSelect)
-        systemDataframe = createSystemDataframe(inputDataframe, timeframe, 'systemTransactionCount')
-        compingDataframe = pd.concat([tyDataframe, lyDataframe], axis = 1)
-        compingDataframe['srs%'] = round((compingDataframe['sameRestaurantTYNetSales']/compingDataframe['sameRestaurantLYNetSales'])-1,3)
-        mergedDataframe = pd.concat([compingDataframe, systemDataframe], axis = 1)
-        mergedDataframe = mergedDataframe[['srs%', 'systemTransactionCount']]
-        return mergedDataframe
-
 
 ##Pipeline Functions##
 ######################
@@ -351,7 +284,8 @@ elif reportSelection == "📈 Brand Preliminary Sales":
     with st.expander("Brand SRS% - Click to Expand: "):
         st.header("Brand SRS%")
         for x in dateMapping.keys():
-                srsdataframeDict[x] = createBrandSRSDataframe(dailyTotals, dateMapping[x], brandSelect)
+                srsdataframeDict[x] = createSRSDataframe(dailyTotals, dateMapping[x])
                 srsdataframeDict[x] = srsdataframeDict[x].rename(columns = {'srs%':f'srs%{x}', 'systemNetSales':f'system{x}'})
         brandSRSDataframe = pd.concat([srsdataframeDict['Yesterday'], srsdataframeDict['WTD'], srsdataframeDict['PTD'], srsdataframeDict['QTD'], srsdataframeDict['YTD']], axis = 1)
+        brandSRSDataframe = brandSRSDataframe.loc[brandSelect]
         st.dataframe(brandSRSDataframe)
