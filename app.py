@@ -287,5 +287,5 @@ elif reportSelection == "📈 Brand Preliminary Sales":
                 srsdataframeDict[x] = createSRSDataframe(dailyTotals, dateMapping[x])
                 srsdataframeDict[x] = srsdataframeDict[x].rename(columns = {'srs%':f'srs%{x}', 'systemNetSales':f'system{x}'})
         brandSRSDataframe = pd.concat([srsdataframeDict['Yesterday'], srsdataframeDict['WTD'], srsdataframeDict['PTD'], srsdataframeDict['QTD'], srsdataframeDict['YTD']], axis = 1)
-        brandSRSDataframe = brandSRSDataframe.loc[brandSelect]
+        #brandSRSDataframe = brandSRSDataframe.loc[brandSelect]
         st.dataframe(brandSRSDataframe)
