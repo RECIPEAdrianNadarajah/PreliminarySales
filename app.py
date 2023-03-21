@@ -102,7 +102,8 @@ def createSystemDataframe(inputDataframe, timeframe, measure):
 ##Create Brand-Selected System Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
 st.cache_data(ttl = 86400)
 def createBrandSystemDataframe(inputDataframe, timeframe, measure, brandSelect):
-        dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby(brandSelect)[measure].sum()
+        dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby('brandName')[measure].sum()
+        dataframe = dataframe.loc[brandSelect]
         return dataframe
 
 ##Create TY Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
@@ -114,7 +115,8 @@ def createTYDataframe(inputDataframe, timeframe, measure):
 ##Create Brand-Selected TY Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
 st.cache_data(ttl = 86400)
 def createBrandTYDataframe(inputDataframe, timeframe, measure, brandSelect):
-        dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby(brandSelect)[measure].sum()
+        dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby('brandName')[measure].sum()
+        dataframe = dataframe.loc[brandSelect]
         return dataframe
 
 ##Create LY Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
@@ -126,7 +128,8 @@ def createLYDataframe(inputDataframe, timeframe, measure):
 ##Create Brand-Selected System Measure Dataframes -- For Net Sales/Guest Count/Transaction Count
 st.cache_data(ttl = 86400)
 def createBrandLYDataframe(inputDataframe, timeframe, measure, brandSelect):
-        dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby(brandSelect)[measure].sum()
+        dataframe = inputDataframe[inputDataframe[timeframe]==True].groupby('brandName')[measure].sum()
+        dataframe = dataframe.loc[brandSelect]
         return dataframe
 
 ##Merge dataframes to calculate growth measures
