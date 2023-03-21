@@ -290,3 +290,17 @@ elif reportSelection == "📈 Brand Preliminary Sales":
         #brandSRSDataframe = brandSRSDataframe.loc[brandSelect]
         st.dataframe(brandSRSDataframe.loc[[brandSelect]])
         st.write(brandSRSDataframe.columns)
+    with st.expander("Brand SRGC% - Click to Expand: "):
+        st.header("Brand SRGC%")
+        for x in dateMapping.keys():
+                srgcdataframeDict[x] = createSRGCDataframe(dailyTotals, dateMapping[x])
+                srgcdataframeDict[x] = srgcdataframeDict[x].rename(columns = {'srgc%':f'srs%{x}', 'systemGuestCount':f'system{x}'})
+        brandSRGCDataframe = pd.concat([srgcdataframeDict['Yesterday'], srgcdataframeDict['WTD'], srgcdataframeDict['PTD'], srgcdataframeDict['QTD'], srgcdataframeDict['YTD']], axis = 1)
+        st.dataframe(brandSRGCDataframe.loc[[brandSelect]])
+    with st.expander('Brand SRTC% - Click to Expand: '):
+        st.header('Brand SRTC%')
+        for x in dateMapping.keys():
+                srtcdataframeDict[x] = createSRTCDataframe(dailyTotals, dateMapping[x])
+                srtcdataframeDict[x] = srtcdataframeDict[x].rename(columns = {'srtc%':f'srtc%{x}', 'systemTransactionCount':f'system{x}'})
+        brandSRTCDataframe = pd.concat([srtcdataframeDict['Yesterday'], srtcdataframeDict['WTD'], srtcdataframeDict['PTD'], srtcdataframeDict['QTD'], srtcdataframeDict['YTD']], axis = 1)
+        st.dataframe(brandSRTCDataframe)
