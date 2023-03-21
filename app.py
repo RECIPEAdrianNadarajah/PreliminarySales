@@ -341,4 +341,8 @@ elif reportSelection == "📈 Brand Preliminary Sales":
     brandSelect = st.selectbox('Select a Brand: ', brandList)
     with st.expander("Brand SRS% - Click to Expand: "):
         st.header("Brand SRS%")
-        #for x in dateMapping.keys():
+        for x in dateMapping.keys():
+                srsdataframeDict[x] = createBrandSRSDataframe(dailyTotals, dateMapping[x], brandSelect)
+                srsdataframeDict[x] = srsdataframeDict[x].rename(columns = {'srs%':f'srs%{x}', 'systemNetSales':f'system{x}'})
+        brandSRSDataframe = pd.concat([srsdataframeDict['Yesterday'], srsdataframeDict['WTD'], srsdataframeDict['PTD'], srsdataframeDict['QTD'], srsdataframeDict['YTD']], axis = 1)
+        st.dataframe(brandSRSDataframe)
