@@ -301,4 +301,4 @@ elif reportSelection == "📈 Brand Preliminary Sales":
                 srtcdataframeDict[x] = createSRTCDataframe(dailyTotals, dateMapping[x])
                 srtcdataframeDict[x] = srtcdataframeDict[x].rename(columns = {'srtc%':f'srtc%{x}', 'systemTransactionCount':f'system{x}'})
         brandSRTCDataframe = pd.concat([srtcdataframeDict['Yesterday'], srtcdataframeDict['WTD'], srtcdataframeDict['PTD'], srtcdataframeDict['QTD'], srtcdataframeDict['YTD']], axis = 1)
-        st.dataframe(brandSRTCDataframe)
+        st.dataframe(brandSRTCDataframe.loc[[brandSelect]])
