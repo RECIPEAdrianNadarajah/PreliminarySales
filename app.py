@@ -289,3 +289,4 @@ elif reportSelection == "📈 Brand Preliminary Sales":
         brandSRSDataframe = pd.concat([srsdataframeDict['Yesterday'], srsdataframeDict['WTD'], srsdataframeDict['PTD'], srsdataframeDict['QTD'], srsdataframeDict['YTD']], axis = 1)
         #brandSRSDataframe = brandSRSDataframe.loc[brandSelect]
         st.dataframe(brandSRSDataframe)
+        st.write(brandSRSDataframe.columns)
